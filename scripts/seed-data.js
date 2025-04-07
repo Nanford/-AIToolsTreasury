@@ -1,25 +1,22 @@
-
 // scripts/seed-data.js
 import { supabase } from '../app/utils/supabase';
 
-const tools = [
+export const toolsData = [
   {
     name: "ChatGPT",
     description: "OpenAI's flagship product, GPT-4o model supports text, image, and voice input/output, leading the AI assistant industry.",
     website_url: "https://chat.openai.com",
-    logo_url: null,
-    categories: ["Multimodal", "TextGeneration", "ImageGeneration"],
+    categories: ["Multimodal", "Text Generation", "Image Generation"],
     tags: ["AI Assistant", "Language Model", "Multimodal"],
-    clicks: 145
+    clicks: 0
   },
   {
     name: "Claude",
     description: "Anthropic's Claude 3.7 Sonnet features enhanced multimodal capabilities, excelling at documents, charts, and complex visuals, with emphasis on safety and privacy.",
     website_url: "https://claude.ai",
-    logo_url: null,
-    categories: ["Multimodal", "TextGeneration"],
+    categories: ["Multimodal", "Text Generation", "Image Understanding"],
     tags: ["AI Assistant", "Document Analysis", "Safety"],
-    clicks: 120
+    clicks: 0
   },
   {
     name: "Gemini",
@@ -206,7 +203,7 @@ const tools = [
 async function seedDatabase() {
   console.log('Starting data import...');
   
-  for (const tool of tools) {
+  for (const tool of toolsData) {
     const { error } = await supabase
       .from('tools')
       .insert(tool);
@@ -224,4 +221,4 @@ async function seedDatabase() {
 // Uncomment the line below to run the seed function
 // seedDatabase();
 
-export { tools, seedDatabase };
+export { toolsData, seedDatabase };
