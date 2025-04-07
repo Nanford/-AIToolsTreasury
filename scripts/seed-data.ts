@@ -1,22 +1,30 @@
-import { Category } from '../app/types';
+import { supabase } from '../app/utils/supabase';
 
-export const toolsData = [
+interface Tool {
+  name: string;
+  description: string;
+  website_url: string;
+  categories: string[];
+  tags: string[];
+  clicks: number;
+  logo_url?: string | null;
+}
+
+const toolsData: Tool[] = [
   {
     name: "ChatGPT",
     description: "OpenAI's flagship product, GPT-4o model supports text, image, and voice input/output, leading the AI assistant industry.",
     website_url: "https://chat.openai.com",
-    logo_url: "📝",
-    categories: ["Multimodal", "TextGeneration", "ImageGeneration"],
-    tags: ["AI Assistant", "Text Generation", "Image Generation"],
+    categories: ["Multimodal", "Text Generation", "Image Generation"],
+    tags: ["AI Assistant", "Language Model", "Multimodal"],
     clicks: 0
   },
   {
     name: "Claude",
     description: "Anthropic's Claude 3.7 Sonnet features enhanced multimodal capabilities, excelling at documents, charts, and complex visuals, with emphasis on safety and privacy.",
     website_url: "https://claude.ai",
-    logo_url: "🔮",
-    categories: ["Multimodal", "TextGeneration"],
-    tags: ["AI Assistant", "Text Generation", "Image Understanding"],
+    categories: ["Multimodal", "Text Generation", "Image Understanding"],
+    tags: ["AI Assistant", "Document Analysis", "Safety"],
     clicks: 0
   },
   {
@@ -109,4 +117,24 @@ export const toolsData = [
     tags: ["UI Design", "Prototyping"],
     clicks: 0
   }
-]; 
+];
+
+async function seedDatabase() {
+  console.log('Starting data import...');
+  
+  for (const tool of toolsData) {
+    const { error } = await supabase
+      .from('tools')
+      .insert(tool);
+    
+    if (error) {
+      console.error(`Error adding ${tool.name}:`, error);
+    } else {
+      console.log(`Added: ${tool.name}`);
+    }
+  }
+  
+  console.log('Data import complete!');
+}
+
+export { toolsData, seedDatabase }; 
