@@ -18,3 +18,9 @@ export type AITool = {
   tags: string[];
   clicks: number;
 }; 
+
+export type User = {
+  id: string;
+  email: string;
+  role: 'admin';
+}; 
