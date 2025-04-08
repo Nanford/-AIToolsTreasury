@@ -5,7 +5,7 @@ import { supabase } from '../utils/supabase';
 
 interface ToolCardProps {
   tool: {
-    id: number;
+    id: string;
     name: string;
     description: string;
     website_url: string;
